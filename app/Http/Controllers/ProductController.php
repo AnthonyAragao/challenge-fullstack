@@ -28,7 +28,7 @@ class ProductController extends Controller
     {
         $this->productService->createProduct($request->all());
         return to_route('products.index')
-            ->with('success', 'Product created successfully');
+            ->with('message', 'Product created successfully');
     }
 
     public function show(string $id)
@@ -50,13 +50,16 @@ class ProductController extends Controller
     {
         $this->productService->updateProduct($id, $request->all());
         return to_route('products.index')
-            ->with('success', 'Product updated successfully');
+            ->with('message', 'Product updated successfully');
     }
 
     public function destroy(string $id)
     {
         $this->productService->deleteProduct($id);
         return to_route('products.index')
-            ->with('success', 'Product deleted successfully');
+            ->with([
+                'message' => 'Product deleted successfully',
+                'key' => now()->timestamp,
+            ]);
     }
 }

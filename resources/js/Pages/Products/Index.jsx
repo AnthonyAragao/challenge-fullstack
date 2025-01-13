@@ -1,9 +1,9 @@
 import AppLayout from '@/Layouts/AppLayout';
 import { Link, Head, router, usePage } from '@inertiajs/react';
+import Alert from '@/Components/UI/Notifications/Alert';
 
 export default function Index({ products }) {
-    const { auth } = usePage().props;
-
+    const { auth, flash } = usePage().props;
 
     const handelDelete = (id) => {
         if (!auth?.user) {
@@ -11,15 +11,19 @@ export default function Index({ products }) {
             return;
         }
 
-        router.delete(`/products/${id}`, {
-            onSuccess: () => alert('Product deleted successfully.'),
-            onError: (errors) => console.error(errors),
-        });
+        router.delete(`/products/${id}`);
     }
 
     return (
         <AppLayout>
             <Head title="Products" />
+
+            {flash?.message && (
+                <Alert
+                    message={flash.message}
+                    key={flash.key}
+                />
+            )}
 
             <div className='flex justify-between items-center'>
                 <h1  className='text-2xl font-bold text-gray-700'>Products</h1>
