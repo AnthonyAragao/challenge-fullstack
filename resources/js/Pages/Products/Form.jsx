@@ -1,5 +1,10 @@
 import AppLayout from '@/Layouts/AppLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
+import TextInput from '@/Components/UI/Inputs/TextInput';
+import NumberInput from '@/Components/UI/Inputs/NumberInput';
+import TextAreaInput from '@/Components/UI/Inputs/TextAreaInput';
+import CheckboxInput from '@/Components/UI/Inputs/CheckboxInput';
+import SubmitButton from '@/Components/UI/Buttons/SubmitButton';
 
 export default function Form({ product, viewOnly = false }) {
     const isEdit = !!product && !viewOnly;
@@ -24,9 +29,7 @@ export default function Form({ product, viewOnly = false }) {
             <Head title={viewOnly ? 'View Product' : isEdit ? 'Edit Product' : 'Create Product'} />
 
             <div className='flex items-center'>
-                <Link
-                    href="/products"
-                >
+                <Link href="/products">
                     <i className="fas fa-arrow-left me-2 text-gray-500 hover:text-gray-700 cursor-pointer text-2xl"></i>
                 </Link>
 
@@ -39,73 +42,65 @@ export default function Form({ product, viewOnly = false }) {
                 onSubmit={handleSubmit}
                 className='mt-8'
             >
-                <div>
-                    <label htmlFor="name">Name</label>
-                    <input
-                        type="text"
-                        id="name"
+                <div className='flex gap-4'>
+                    <TextInput
+                        id='name'
+                        label='Name'
                         value={form.data.name}
+                        placeholder={viewOnly ? '' : 'Product name'}
                         onChange={(e) => form.setData('name', e.target.value)}
                         disabled={viewOnly}
+                        error={form.errors.name}
+                        className='w-1/2'
                     />
-                    {form.errors.name && !viewOnly && <div>{form.errors.name}</div>}
-                </div>
 
-                <div>
-                    <label htmlFor="price">Price</label>
-                    <input
-                        type="number"
-                        id="price"
+                    <NumberInput
+                        id='price'
+                        label='Price'
                         value={form.data.price}
+                        placeholder={viewOnly ? '' : 'Product price'}
                         onChange={(e) => form.setData('price', e.target.value)}
                         disabled={viewOnly}
+                        error={form.errors.price}
+                        className='w-1/4'
                     />
-                    {form.errors.price && !viewOnly && <div>{form.errors.price}</div>}
-                </div>
 
-                <div>
-                    <label htmlFor="description">Description</label>
-                    <textarea
-                        id="description"
-                        value={form.data.description}
-                        onChange={(e) => form.setData('description', e.target.value)}
-                        disabled={viewOnly}
-                    />
-                    {form.errors.description && !viewOnly && <div>{form.errors.description}</div>}
-                </div>
-
-                <div>
-                    <label htmlFor="quantity">Quantity</label>
-                    <input
-                        type="number"
-                        id="quantity"
+                    <NumberInput
+                        id='quantity'
+                        label='Quantity'
                         value={form.data.quantity}
+                        placeholder={viewOnly ? '' : 'Product quantity'}
                         onChange={(e) => form.setData('quantity', e.target.value)}
                         disabled={viewOnly}
+                        error={form.errors.quantity}
+                        className='w-1/4'
                     />
-                    {form.errors.quantity && !viewOnly && <div>{form.errors.quantity}</div>}
                 </div>
 
-                <div>
-                    <label htmlFor="active">Active</label>
-                    <input
-                        type="checkbox"
-                        id="active"
-                        checked={form.data.active}
-                        onChange={(e) => form.setData('active', e.target.checked)}
-                        disabled={viewOnly}
-                    />
-                    {form.errors.active && !viewOnly && <div>{form.errors.active}</div>}
-                </div>
+                <TextAreaInput
+                    id='description'
+                    label='Description'
+                    value={form.data.description}
+                    placeholder={viewOnly ? '' : 'Product description'}
+                    onChange={(e) => form.setData('description', e.target.value)}
+                    disabled={viewOnly}
+                    error={form.errors.description}
+                    className='mt-4'
+                />
 
+                <CheckboxInput
+                    id="active"
+                    label="Active"
+                    checked={form.data.active}
+                    onChange={(e) => form.setData('active', e.target.checked)}
+                    disabled={viewOnly}
+                    error={form.errors.active}
+                />
 
                 {!viewOnly && (
-                    <button
-                        type="submit"
-                        className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300 text-sm font-semibold mt-4'
-                    >
-                        {isEdit ? 'Update' : 'Create'} Product
-                    </button>
+                    <SubmitButton
+                        label={isEdit ? 'Update Product' : 'Create Product'}
+                    ></SubmitButton>
                 )}
             </form>
         </AppLayout>

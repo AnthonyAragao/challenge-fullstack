@@ -1,8 +1,16 @@
 import AppLayout from '@/Layouts/AppLayout';
-import { Link, Head, router } from '@inertiajs/react';
+import { Link, Head, router, usePage } from '@inertiajs/react';
 
 export default function Index({ products }) {
+    const { auth } = usePage().props;
+
+
     const handelDelete = (id) => {
+        if (!auth?.user) {
+            alert('You need to be logged in to delete a product.');
+            return;
+        }
+
         router.delete(`/products/${id}`, {
             onSuccess: () => alert('Product deleted successfully.'),
             onError: (errors) => console.error(errors),
