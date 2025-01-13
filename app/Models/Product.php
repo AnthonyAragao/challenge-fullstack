@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
 
 class Product extends Model
 {
@@ -25,4 +26,11 @@ class Product extends Model
         'created_at',
         'updated_at',
     ];
+
+    protected $appends = ['encrypted_id'];
+
+    public function getEncryptedIdAttribute()
+    {
+        return Crypt::encrypt($this->id);
+    }
 }

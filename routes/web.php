@@ -3,7 +3,6 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::redirect('/', '/products');
 Route::redirect('/dashboard', '/products')->middleware(['auth', 'verified'])->name('dashboard');

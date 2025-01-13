@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Product;
 use App\Repositories\Contracts\ProductRepositoryInterface;
+use Illuminate\Support\Facades\Crypt;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -23,7 +24,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getProduct(string $id)
     {
-        return $this->products->findOrFail($id);
+        return $this->products->findOrFail(Crypt::decrypt($id));
     }
 
     public function updateProduct(string $id, array $data)
