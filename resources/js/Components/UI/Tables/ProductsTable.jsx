@@ -2,6 +2,7 @@ import { Link, router, usePage } from "@inertiajs/react"
 import TableCell from "./TableCell";
 
 export default function ProductsTable({ products }) {
+    const productList = products?.data || [];
     const { auth, } = usePage().props;
 
     const headers = [ 'Name', 'Price', 'Status', 'Actions' ];
@@ -26,7 +27,7 @@ export default function ProductsTable({ products }) {
             </thead>
 
             <tbody>
-                {products.map((product) => (
+                {productList.map((product) => (
                     <tr
                         key={product.id}
                         className='border-b hover:bg-gray-50 font-medium text-gray-600'

@@ -2,6 +2,7 @@ import { Link, Head, usePage } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 import Alert from '@/Components/UI/Notifications/Alert';
 import ProductsTable from '@/Components/UI/Tables/ProductsTable';
+import Pagination from '@/Components/Navigation/Pagination';
 
 export default function Index({ products }) {
     const { flash } = usePage().props;
@@ -28,6 +29,7 @@ export default function Index({ products }) {
             </div>
 
             <ProductsTable products={products} />
+            <Pagination pagination={products} className='mt-4'/>
         </AppLayout>
     );
 }

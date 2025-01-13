@@ -14,7 +14,9 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getProducts()
     {
-        return $this->products->all();
+        return $this->products
+            ->orderBy('name')
+            ->paginate(10);
     }
 
     public function createProduct(array $data)
