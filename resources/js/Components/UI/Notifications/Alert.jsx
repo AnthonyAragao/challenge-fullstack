@@ -25,7 +25,7 @@ export default function Alert({
             unmountOnExit
         >
             <div
-                className={`fixed bottom-10 right-8 bg-green-500 text-white px-6 py-4 rounded-md shadow-lg flex items-center gap-4 z-10 ${customClass}`}
+                className={`fixed bottom-10 right-8 bg-green-500 text-white px-6 py-2 rounded-md shadow-lg flex items-center gap-4 z-10 ${customClass}`}
             >
                 <span className="text-sm font-semibold">{message}</span>
                 <button

@@ -1,19 +1,30 @@
-import { Link, router, usePage } from "@inertiajs/react"
+import { router, usePage } from "@inertiajs/react"
 import TableCell from "./TableCell";
+import ProductDeleteModal from "../Modals/ProductDeleteModal";
+import { useState } from "react";
+import ActionButton from "../Buttons/ActionButton";
 
 export default function ProductsTable({ products }) {
     const productList = products?.data || [];
     const { auth, } = usePage().props;
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedProductId, setSelectedProductId] = useState(null);
 
     const headers = [ 'Name', 'Price', 'Status', 'Actions' ];
 
-    const handelDelete = (id) => {
+    const handleDelete = (id) => {
         if (!auth?.user) {
             alert('You need to be logged in to delete a product.');
             return;
         }
 
-        router.delete(`/products/${id}`);
+        setSelectedProductId(id);
+        setIsModalOpen(true);
+    }
+
+    const confirmDelete = () => {
+        router.delete(`/products/${selectedProductId}`);
+        setIsModalOpen(false);
     }
 
     return(
@@ -47,33 +58,37 @@ export default function ProductsTable({ products }) {
                             </span>
                         </TableCell>
                         <TableCell className='flex items-center gap-2'>
-                            <Link
+                            <ActionButton
                                 href={`products/${product.encrypted_id}`}
-                                className='px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300'
-                            >
-                                <i className="fa fa-eye" aria-hidden="true"></i>
-                            </Link>
+                                text="View"
+                                iconClass="fas fa-eye"
+                                color="blue"
+                            />
 
-                            <Link
+                            <ActionButton
                                 href={`products/${product.encrypted_id}/edit`}
-                                className='px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition duration-300'
-                            >
-                                <i className="fa fa-pencil" aria-hidden="true"></i>
-                            </Link>
+                                text="Edit"
+                                iconClass="fas fa-pencil-alt"
+                                color="yellow"
+                            />
 
-                            <div
-                                className='px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition duration-300 cursor-pointer'
-                                onClick={() => handelDelete(product.encrypted_id)}
-                            >
-                                <i
-                                    className='fa fa-trash'
-                                    aria-hidden='true'
-                                ></i>
-                            </div>
+                            <ActionButton
+                                onClick={() => handleDelete(product.encrypted_id)}
+                                text="Delete"
+                                iconClass="fas fa-trash"
+                                color="red"
+                            />
                         </TableCell>
                     </tr>
                 ))}
             </tbody>
+
+            {isModalOpen && (
+                <ProductDeleteModal
+                    onCancel={() => setIsModalOpen(false)}
+                    onConfirm={confirmDelete}
+                />
+            )}
         </table>
     )
 }

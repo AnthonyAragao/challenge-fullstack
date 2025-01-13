@@ -28,8 +28,12 @@ export default function Index({ products }) {
                 </Link>
             </div>
 
-            <ProductsTable products={products} />
-            <Pagination pagination={products} className='mt-4'/>
+            <ProductsTable products={products}/>
+
+            <Pagination
+                pagination={products}
+                className='mt-4'
+            />
         </AppLayout>
     );
 }
