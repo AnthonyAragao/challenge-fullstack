@@ -33,8 +33,9 @@ class ProductController extends Controller
 
     public function show(string $id)
     {
-        return Inertia::render('Products/Show', [
-            'product' => $this->productService->getProduct($id)
+        return Inertia::render('Products/Form', [
+            'product' => $this->productService->getProduct($id),
+            'viewOnly' => true,
         ]);
     }
 
