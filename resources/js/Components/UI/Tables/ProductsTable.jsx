@@ -14,7 +14,7 @@ export default function ProductsTable({ products }) {
 
     const handleDelete = (id) => {
         if (!auth?.user) {
-            alert('You need to be logged in to delete a product.');
+            router.visit('/login');
             return;
         }
 
