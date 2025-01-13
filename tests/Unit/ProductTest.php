@@ -26,11 +26,19 @@ class ProductTest extends TestCase
         $product = Product::factory()->make()->toArray();
         $createdProduct = $this->productRepository->createProduct($product);
 
-        $this->assertDatabaseHas('products', $product);
+        $this->assertDatabaseHas('products', [
+            'name' => $product['name'],
+            'description' => $product['description'],
+            'price' => $product['price'],
+            'quantity' => $product['quantity'],
+            'active' => $product['active'],
+        ]);
+
         $this->assertEquals($product['name'], $createdProduct->name);
         $this->assertEquals($product['description'], $createdProduct->description);
         $this->assertEquals($product['price'], $createdProduct->price);
         $this->assertEquals($product['quantity'], $createdProduct->quantity);
+        $this->assertEquals($product['active'], $createdProduct->active);
     }
 
     public function test_it_fails_to_store_a_product_with_invalid_data()
@@ -39,10 +47,11 @@ class ProductTest extends TestCase
 
         try {
             $this->productRepository->createProduct($product);
-            $this->assertTrue(false);
-        } catch (\Exception $e) {
-            $this->assertDatabaseMissing('products', $product);
-            $this->assertTrue(true);
+            $this->fail('Expected exception not thrown');
+        } catch (\Exception $exception) {
+            $this->assertDatabaseMissing('products', [
+                'name' => $product['name'],
+            ]);
         }
     }
 }
