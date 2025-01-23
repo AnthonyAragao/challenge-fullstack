@@ -1,8 +1,4 @@
-export default function SubmitButton({
-    label,
-    disabled = false,
-    className = ''
-}) {
+export default function SubmitButton({ label, disabled = false, className = ''}) {
     return (
         <button
             type="submit"

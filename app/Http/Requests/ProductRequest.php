@@ -15,7 +15,7 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'description' => 'nullable|string|max:255',
             'price' => 'required|numeric|min:0.01',
             'quantity' => 'required|integer',
         ];

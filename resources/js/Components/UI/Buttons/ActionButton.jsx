@@ -2,6 +2,7 @@ import { Link } from "@inertiajs/react";
 
 export default function ActionButton({ href, onClick, text, iconClass, color }) {
     const ButtonWrapper = href ? Link : "button";
+
     return (
         <ButtonWrapper
             href={href}

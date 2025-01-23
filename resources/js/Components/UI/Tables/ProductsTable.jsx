@@ -6,8 +6,8 @@ import ActionButton from "../Buttons/ActionButton";
 
 export default function ProductsTable({ products }) {
     const productList = products?.data || [];
-    const { auth, } = usePage().props;
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { auth, }                                 = usePage().props;
+    const [isModalOpen, setIsModalOpen]             = useState(false);
     const [selectedProductId, setSelectedProductId] = useState(null);
 
     const headers = [ 'Name', 'Price', 'Status', 'Actions' ];

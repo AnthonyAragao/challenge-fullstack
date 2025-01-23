@@ -29,11 +29,7 @@ export default function Index({ products }) {
             </div>
 
             <ProductsTable products={products}/>
-
-            <Pagination
-                pagination={products}
-                className='mt-4'
-            />
+            <Pagination pagination={products}/>
         </AppLayout>
     );
 }

@@ -7,7 +7,7 @@ import CheckboxInput from '@/Components/UI/Inputs/CheckboxInput';
 import SubmitButton from '@/Components/UI/Buttons/SubmitButton';
 
 export default function Form({ product, viewOnly = false }) {
-    const isEdit = !!product && !viewOnly;
+    const isEdit = (product ?? false) && !viewOnly;
 
     const form = useForm({
         name: product?.name || '',
@@ -26,7 +26,9 @@ export default function Form({ product, viewOnly = false }) {
 
     return (
         <AppLayout>
-            <Head title={viewOnly ? 'View Product' : isEdit ? 'Edit Product' : 'Create Product'} />
+            <Head title={
+                viewOnly ? 'View Product' : isEdit ? 'Edit Product' : 'Create Product'
+            } />
 
             <div className='flex items-center'>
                 <Link href="/products">

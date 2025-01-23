@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
 
-export default function Pagination({ pagination, className }) {
+export default function Pagination({ pagination }) {
     if (!pagination || !pagination.links) return null;
 
     return (
-        <nav className={`space-x-1 ${className}`}>
+        <nav className={'space-x-1 mt-4'}>
             {pagination.links.map((link, index) => {
                 return (
                     <Link
